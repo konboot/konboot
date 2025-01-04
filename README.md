@@ -1,6 +1,8 @@
            
 # 👋 Hi, I'm Prachi Dixit!  
 
+![image](https://github.com/user-attachments/assets/ce2360e9-a9ac-4f32-acf6-0b2898433542)
+
 Welcome to my GitHub profile! I'm a **Cybersecurity and DevSecOps Engineer** with a strong foundation in **Linux, Cloud Security, CI/CD Pipelines**, and **Vulnerability Management**. Currently, I'm on an exciting journey to blend **automation**, **monitoring**, and **secure infrastructure design** into my projects.  
 
 ---
@@ -62,16 +64,7 @@ Welcome to my GitHub profile! I'm a **Cybersecurity and DevSecOps Engineer** wit
 
 
 ---
-## 📅 Monthly Contributions
 
-![Monthly Contributions](https://github-contributions-chart.vercel.app/api?username=konboot&theme=radical)
- 
-### 🌟 Recent Activity
-<!-- GitHub Activity Feed -->
-<!-- Uncomment below after setup -->
-<!--START_SECTION:activity-->
-
-<!--END_SECTION:activity-->
 
 ---
 
