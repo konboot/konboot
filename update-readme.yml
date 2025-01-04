@@ -18,22 +18,46 @@ jobs:
           COMMIT_MSG: "Update README with recent activity"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+name: Update Monthly Contributions
+
+on:
+  schedule:
+    - cron: "0 0 1 * *" # Runs at the start of every month
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
       - name: Fetch Contributions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "## 📅 Monthly Contributions" > contributions.md
-          curl -s "https://api.github.com/users/konboot/events" | \
-          jq '.[] | select(.type == "PushEvent") | .created_at' | \
-          awk -F- '{print $1"-"$2}' | sort | uniq -c | sort -r >> contributions.md
+          echo "" >> contributions.md
+          echo "| Month      | Contributions |" >> contributions.md
+          echo "|------------|---------------|" >> contributions.md
 
-      - name: Update README
-        run: |
+          # Fetch contributions from GitHub API
+          curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/search/commits?q=author:konboot+committer-date:>$(date -d '1 month ago' +%Y-%m-01T00:00:00Z)" | \
+          jq '.total_count' > monthly_contributions.txt
+          
+          # Get current month and year
+          MONTH=$(date +'%B')
+          CONTRIBUTIONS=$(cat monthly_contributions.txt)
+
+          echo "| $MONTH    | $CONTRIBUTIONS      |" >> contributions.md
+          echo "" >> contributions.md
+
+          # Merge with existing README.md
           sed -i '/## 📅 Monthly Contributions/,+10 d' README.md
           cat contributions.md >> README.md
 
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "Update Monthly Contribution Summary"
+          commit_message: "Update Monthly Contributions"
