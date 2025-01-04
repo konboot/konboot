@@ -17,3 +17,23 @@ jobs:
         with:
           COMMIT_MSG: "Update README with recent activity"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Fetch Contributions
+        run: |
+          echo "## 📅 Monthly Contributions" > contributions.md
+          curl -s "https://api.github.com/users/konboot/events" | \
+          jq '.[] | select(.type == "PushEvent") | .created_at' | \
+          awk -F- '{print $1"-"$2}' | sort | uniq -c | sort -r >> contributions.md
+
+      - name: Update README
+        run: |
+          sed -i '/## 📅 Monthly Contributions/,+10 d' README.md
+          cat contributions.md >> README.md
+
+      - name: Commit Changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Update Monthly Contribution Summary"
