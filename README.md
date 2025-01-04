@@ -62,7 +62,10 @@ Welcome to my GitHub profile! I'm a **Cybersecurity and DevSecOps Engineer** wit
 
 
 ---
+## 📅 Monthly Contributions
 
+![Monthly Contributions](https://github-contributions-chart.vercel.app/api?username=konboot&theme=radical)
+ 
 ### 🌟 Recent Activity
 <!-- GitHub Activity Feed -->
 <!-- Uncomment below after setup -->
